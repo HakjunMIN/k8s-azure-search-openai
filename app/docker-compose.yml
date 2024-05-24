@@ -1,10 +1,11 @@
 version: '3'
 services:
   app:
+    image: copilot-app
     build:
-      context: ./app
+      context: ./
       dockerfile: Dockerfile
-    volumes:
-      - ./:/app
-    env_file: .env
-    command: /bin/bash -c "source start-prod.sh"
+    env_file: 
+      - .env
+    ports:
+      - "80:80"

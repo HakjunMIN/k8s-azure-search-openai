@@ -1,5 +1,6 @@
 # Set environment variables
 source .env
+
 # Activate virtual environment
 # source venv/bin/activate
 
@@ -10,6 +11,7 @@ cd ..
 
 # Run backend
 cd backend
-port=80
-host=0.0.0.0
+pip3 install -r requirements.txt
+port=50505
+host=localhost
 python3 -m quart --app main:app run --port "$port" --host "$host" --reload

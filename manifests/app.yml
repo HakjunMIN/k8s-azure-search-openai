@@ -1,0 +1,203 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: copilot-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: copilot-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: copilot-app
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: copilot-app-container
+        image: lgcnsacr.azurecr.io/demo/copilot-app:v1
+        ports:
+        - containerPort: 80
+        volumesMounts:
+          - name: secret-volume
+            mountPath: mnt/secrets-store
+            readOnly: true
+        env:
+        - name: AZURE_AUTH_TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-AUTH-TENANT-ID
+        - name: AZURE_DOCUMENTINTELLIGENCE_RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-DOCUMENTINTELLIGENCE-RESOURCE-GROUP
+        - name: AZURE_DOCUMENTINTELLIGENCE_SERVICE
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-DOCUMENTINTELLIGENCE-SERVICE
+        - name: AZURE_ENV_NAME
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-ENV-NAME
+        - name: AZURE_KEY_VAULT_NAME
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-KEY-VAULT-NAME
+        - name: AZURE_LOCATION
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-LOCATION
+        - name: AZURE_OPENAI_API_VERSION
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-API-VERSION
+        - name: AZURE_OPENAI_CHATGPT_DEPLOYMENT
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-CHATGPT-DEPLOYMENT
+        - name: AZURE_OPENAI_CHATGPT_MODEL
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-CHATGPT-MODEL
+        - name: AZURE_OPENAI_EMB_DEPLOYMENT
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-EMB-DEPLOYMENT
+        - name: AZURE_OPENAI_EMB_MODEL_NAME
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-EMB-MODEL-NAME
+        - name: AZURE_OPENAI_GPT4V_DEPLOYMENT
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-GPT4V-DEPLOYMENT
+        - name: AZURE_OPENAI_GPT4V_MODEL
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-GPT4V-MODEL
+        - name: AZURE_OPENAI_RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-RESOURCE-GROUP
+        - name: AZURE_OPENAI_SERVICE
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-OPENAI-SERVICE
+        - name: AZURE_RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-RESOURCE-GROUP
+        - name: AZURE_SEARCH_INDEX
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-INDEX
+        - name: AZURE_SEARCH_SECRET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-SECRET-NAME
+        - name: AZURE_SEARCH_SEMANTIC_RANKER
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-SEMANTIC-RANKER
+        - name: AZURE_SEARCH_SERVICE
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-SERVICE
+        - name: AZURE_SEARCH_SERVICE_ASSIGNED_USERID
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-SERVICE-ASSIGNED-USERID
+        - name: AZURE_SEARCH_SERVICE_RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SEARCH-SERVICE-RESOURCE-GROUP
+        - name: AZURE_STORAGE_ACCOUNT
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-STORAGE-ACCOUNT
+        - name: AZURE_STORAGE_CONTAINER
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-STORAGE-CONTAINER
+        - name: AZURE_STORAGE_RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-STORAGE-RESOURCE-GROUP
+        - name: AZURE_SUBSCRIPTION_ID
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-SUBSCRIPTION-ID
+        - name: AZURE_TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-TENANT-ID
+        - name: AZURE_USE_AUTHENTICATION
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-USE-AUTHENTICATION
+        - name: AZURE_VISION_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: AZURE-VISION-ENDPOINT
+        - name: BACKEND_URI
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: BACKEND-URI
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: OPENAI-API-KEY
+        - name: OPENAI_HOST
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: OPENAI-HOST
+        - name: OPENAI_ORGANIZATION
+          valueFrom:
+            secretKeyRef:
+              name: foosecret
+              key: OPENAI-ORGANIZATION
+      volumes:
+      - name: secret-volume
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-sync"

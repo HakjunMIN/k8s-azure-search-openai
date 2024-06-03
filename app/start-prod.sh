@@ -3,10 +3,10 @@ source .env
 # Activate virtual environment
 # source venv/bin/activate
 
-# Run frontend
-cd frontend
-npm run build
-cd ..
+# # Run frontend
+# cd frontend
+# npm run build
+# cd ..
 
 # Run backend
 cd backend

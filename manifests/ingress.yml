@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: copilot-ingress
+  namespace: app
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: <Hostname>
+    http:
+      paths:
+      - backend:
+          service:
+            name: copilot-svc
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

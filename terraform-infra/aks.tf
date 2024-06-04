@@ -25,3 +25,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
         network_plugin = "azure"
     }
 }
+
+resource "azurerm_role_assignment" "aks-rg-assignment" {
+    scope = azurerm_container_registry.acr.id
+    role_definition_name = "AcrPull"
+    principal_id = azurerm_kubernetes_cluster.k8s.identity[0].principal_id
+    skip_service_principal_aad_check = true
+}

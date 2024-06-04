@@ -22,7 +22,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: copilot-app-container
-        image: lgcnsacr.azurecr.io/demo/copilot-app:v1
+        image: copilotregistry789a9ccd19207cf1.azurecr.io/demo/copilot-app:latest
         ports:
         - containerPort: 80
         volumesMounts:
@@ -196,9 +196,9 @@ spec:
               name: foosecret
               key: OPENAI-ORGANIZATION
       volumes:
-      - name: secret-volume
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: "azure-sync"
+        - name: secret-volume
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-sync"

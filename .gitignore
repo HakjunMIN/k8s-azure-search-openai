@@ -152,3 +152,8 @@ data/**/*.md5
 
 # csv file
 *.csv
+
+# terraform
+.terraform
+*.terraform.lock.hcl
+*.terraform.tfstate.lock.info

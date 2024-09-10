@@ -60,7 +60,7 @@
       "value": "${AZURE_SEARCH_SERVICE_LOCATION}"
     },
     "searchServiceSkuName": {
-      "value": "${AZURE_SEARCH_SERVICE_SKU=standard}"
+      "value": "${AZURE_SEARCH_SERVICE_SKU=basic}"
     },
     "searchQueryLanguage": {
       "value": "${AZURE_SEARCH_QUERY_LANGUAGE=en-us}"
@@ -79,6 +79,9 @@
     },
     "storageSkuName": {
       "value": "${AZURE_STORAGE_SKU=Standard_LRS}"
+    },
+    "aksName": {
+      "value": "${AZURE_AKS_CLUSTER_NAME}"
     },
     "appServicePlanName": {
       "value": "${AZURE_APP_SERVICE_PLAN}"
@@ -125,6 +128,9 @@
     "azureOpenAiApiVersion":{
       "value": "${AZURE_OPENAI_API_VERSION}"
     },
+    "azureOpenAiApiKey":{
+      "value": "${AZURE_OPENAI_API_KEY_OVERRIDE}"
+    },
     "openAiApiKey": {
       "value": "${OPENAI_API_KEY}"
     },
@@ -148,6 +154,9 @@
     },
     "useGPT4V": {
       "value": "${USE_GPT4V=false}"
+    },
+    "enableLanguagePicker": {
+      "value": "${ENABLE_LANGUAGE_PICKER=false}"
     },
     "useSpeechInputBrowser": {
       "value": "${USE_SPEECH_INPUT_BROWSER=false}"
@@ -175,6 +184,9 @@
     },
     "enforceAccessControl": {
       "value": "${AZURE_ENFORCE_ACCESS_CONTROL=false}"
+    },
+    "disableAppServicesAuthentication": {
+      "value": "${AZURE_DISABLE_APP_SERVICES_AUTHENTICATION=false}"
     },
     "enableGlobalDocuments": {
       "value": "${AZURE_ENABLE_GLOBAL_DOCUMENT_ACCESS=false}"
@@ -211,24 +223,6 @@
     },
     "bypass": {
       "value": "${AZURE_NETWORK_BYPASS=AzureServices}"
-    },
-    "provisionVm": {
-      "value": "${AZURE_PROVISION_VM=false}"
-    },
-    "vmUserName": {
-      "value": "${AZURE_VM_USERNAME}"
-    },
-    "vmPassword": {
-      "value": "${AZURE_VM_PASSWORD}"
-    },
-    "vmOsVersion": {
-      "value": "${AZURE_VM_OS_VERSION=2022-datacenter-azure-edition}"
-    },
-    "vmOsPublisher": {
-      "value": "${AZURE_VM_OS_PUBLISHER=MicrosoftWindowsServer}"
-    },
-    "vmOsOffer": {
-      "value": "${AZURE_VM_OS_OFFER=WindowsServer}"
     },
     "useIntegratedVectorization": {
       "value": "${USE_FEATURE_INT_VECTORIZATION}"

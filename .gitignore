@@ -150,10 +150,4 @@ data/**/*.md5
 
 .DS_Store
 
-# csv file
-*.csv
-
-# terraform
-.terraform
-*.terraform.lock.hcl
-*.terraform.tfstate.lock.info
+secret.yaml

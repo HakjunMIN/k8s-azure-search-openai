@@ -180,6 +180,9 @@ def mock_openai_chatcompletion(monkeypatch):
                 raise StopAsyncIteration
 
     async def mock_acreate(*args, **kwargs):
+        # The only two possible values for seed:
+        assert kwargs.get("seed") is None or kwargs.get("seed") == 42
+
         messages = kwargs["messages"]
         last_question = messages[-1]["content"]
         if last_question == "Generate search query for: What is the capital of France?":
@@ -297,6 +300,7 @@ def mock_env(monkeypatch, request):
         monkeypatch.setenv("AZURE_STORAGE_CONTAINER", "test-storage-container")
         monkeypatch.setenv("AZURE_STORAGE_RESOURCE_GROUP", "test-storage-rg")
         monkeypatch.setenv("AZURE_SUBSCRIPTION_ID", "test-storage-subid")
+        monkeypatch.setenv("ENABLE_LANGUAGE_PICKER", "true")
         monkeypatch.setenv("USE_SPEECH_INPUT_BROWSER", "true")
         monkeypatch.setenv("USE_SPEECH_OUTPUT_AZURE", "true")
         monkeypatch.setenv("AZURE_SEARCH_INDEX", "test-search-index")

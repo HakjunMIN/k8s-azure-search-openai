@@ -26,10 +26,10 @@ param sku object = { name: 'Standard_LRS' }
 @allowed([ 'None', 'AzureServices' ])
 param bypass string = 'AzureServices'
 
-var networkAcls = {
+var networkAcls = (publicNetworkAccess == 'Enabled') ? {
   bypass: bypass
   defaultAction: 'Allow'
-}
+} : { defaultAction: 'Deny' }
 
 resource storage 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: name
@@ -58,9 +58,9 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-05-01' = {
     }
     resource container 'containers' = [for container in containers: {
       name: container.name
-      properties: {
-        publicAccess: contains(container, 'publicAccess') ? container.publicAccess : 'None'
-      }
+      // properties: {
+      //   publicAccess: contains(container, 'publicAccess') ? container.publicAccess : 'None'
+      // }
     }]
   }
 }

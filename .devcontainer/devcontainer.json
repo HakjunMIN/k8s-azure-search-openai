@@ -8,7 +8,12 @@
             "nodeGypDependencies": false
         },
         "ghcr.io/devcontainers/features/azure-cli:1.0.8": {},
-        "ghcr.io/azure/azure-dev/azd:latest": {}
+        "ghcr.io/azure/azure-dev/azd:latest": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:1": {},
+        "ghcr.io/devcontainers/features/helm:1": {},
+        "ghcr.io/devcontainers/features/kubectl:1": {}
+
+
     },
     "customizations": {
         "vscode": {

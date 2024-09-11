@@ -11,7 +11,7 @@ azd auth login
 ```
 or in github codespace
 ```bash
- az login --tenant <tenant>--use-device-code
+ az login --tenant <tenant> --use-device-code
  azd auth login --tenant-id <tenant>  --use-device-code
 ```
 
@@ -75,6 +75,10 @@ az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Search Ind
 az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Storage Blob Data Contributor" --scope $AZURE_STORAGE_ACCOUNT
 ```
 
+### Kubectl contexting
+```bash
+az aks get-credentials --name "${AZURE_AKS_CLUSTER_NAME}" --resource-group "${AZURE_RESOURCE_GROUP}" --overwrite-existing
+```
 ### 앱 배포
 ```bash
 kubectl apply -f ./manifests/secret.yaml

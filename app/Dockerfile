@@ -1,20 +1,25 @@
 # Build the frontend(node)
 FROM node:18-alpine AS build-node
-# RUN apt-get update && apt-get install -y bash
 
 COPY ./ /app
-
 WORKDIR /app/frontend
 RUN npm install
 RUN npm run build
 
 # Runtime stage
 FROM python:3.10-slim
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
-COPY --from=build-node /app/ /app/
-# COPY --from=build-python /app/backend /app/backend  
 WORKDIR /app
+COPY --from=build-node /app/ /app/
 
-RUN python3 -m pip install -r backend/requirements.txt
+RUN chown -R appuser:appgroup /app
 
-CMD ["python3", "-m", "quart", "--app", "backend/main:app", "run", "--port", "80", "--host", "0.0.0.0"]
+USER appuser
+
+RUN python3 -m venv /app/venv && \
+    /app/venv/bin/pip install --no-cache-dir -r /app/backend/requirements.txt
+
+ENV PATH="/app/venv/bin:$PATH"
+
+CMD ["python3", "-m", "quart", "--app", "backend/main:app", "run", "--port", "8080", "--host", "0.0.0.0"]

@@ -9,6 +9,11 @@
 az login
 azd auth login
 ```
+or in github codespace
+```bash
+ az login --tenant <tenant>--use-device-code
+ azd auth login --tenant-id <tenant>  --use-device-code
+```
 
 ### create a new environment and provision it
 ```bash

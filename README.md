@@ -1,6 +1,6 @@
 # Azure openAI search demo running on K8S
 
-본 프로젝트의 상세정보는 [Here](README.md)에서 확인할 수 있습니다.
+본 프로젝트의 상세정보는 [Here](PROJECT_README.md)에서 확인할 수 있습니다.
 
 ## Quick Start
 
@@ -81,3 +81,11 @@ kubectl apply -f ./manifests/secret.yaml
 sed -e "s|YOUR-REGISTRY|${AZURE_CONTAINER_REGISTRY_NAME}|g" ./manifests/app.yaml | kubectl apply -f -
 ```
 
+### LB확인
+```bash
+kubectl get svc
+```
+
+### 테스트
+
+https://<EXTERNAL-IP>

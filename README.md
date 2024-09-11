@@ -70,13 +70,13 @@ az identity federated-credential create --name fedid --identity-name "${USER_ASS
 ### 권한 할당
 ```bash
 # Assign AI Developer role to USER_ASSIGNED_CLIENT_ID for Azure OpenAI Service
-az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Azure AI Developer" --scope $AZURE_OPENAI_SERVICE
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Azure AI Developer" --scope /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_RESOURCE_GROUP/providers/Microsoft.CognitiveServices/accounts/$AZURE_OPENAI_SERVICE
 
 # Assign Search Index Contributor role to USER_ASSIGNED_CLIENT_ID for Azure Search Service
-az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Search Index Data Contributor" --scope $AZURE_SEARCH_SERVICE
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Search Index Data Contributor" --scope /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_RESOURCE_GROUP/providers/Microsoft.Search/searchServices/$AZURE_SEARCH_SERVICE
 
 # Assign Storage Blob Data Contributor role to USER_ASSIGNED_CLIENT_ID for Azure Storage Account
-az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Storage Blob Data Contributor" --scope $AZURE_STORAGE_ACCOUNT
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Storage Blob Data Contributor" --scope /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_RESOURCE_GROUP/providers/Microsoft.Storage/storageAccounts/$AZURE_STORAGE_ACCOUNT
 ```
 
 
@@ -93,4 +93,4 @@ kubectl get svc
 
 ### 테스트
 
-https://<EXTERNAL-IP>
+`http://<EXTERNAL-IP>`

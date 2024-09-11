@@ -37,8 +37,7 @@ source <(azd env get-values)
 > 없으면 `az account show --query tenantId -o tsv`로 값을 가져와서 넣어줄 것
 
 ### Pod에서 사용할 Workload Identity 생성
->[!Note]
->이 부분은 추후 자동화 예정
+
 
 ```bash
 az aks update --resource-group "${AZURE_RESOURCE_GROUP}" --name "${AZURE_AKS_CLUSTER_NAME}" --enable-oidc-issuer --enable-workload-identity
@@ -63,6 +62,17 @@ EOF
 
 az identity federated-credential create --name fedid --identity-name "${USER_ASSIGNED_IDENTITY_NAME}" --resource-group "${AZURE_RESOURCE_GROUP}" --issuer "${AKS_OIDC_ISSUER}" --subject system:serviceaccount:app:workload-sa --audience api://AzureADTokenExchange
 
+```
+### 권한 할당
+```bash
+# Assign AI Developer role to USER_ASSIGNED_CLIENT_ID for Azure OpenAI Service
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Azure AI Developer" --scope $AZURE_OPENAI_SERVICE
+
+# Assign Search Index Contributor role to USER_ASSIGNED_CLIENT_ID for Azure Search Service
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Search Index Data Contributor" --scope $AZURE_SEARCH_SERVICE
+
+# Assign Storage Blob Data Contributor role to USER_ASSIGNED_CLIENT_ID for Azure Storage Account
+az role assignment create --assignee $USER_ASSIGNED_CLIENT_ID --role "Storage Blob Data Contributor" --scope $AZURE_STORAGE_ACCOUNT
 ```
 
 ### 앱 배포

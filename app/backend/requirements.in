@@ -11,7 +11,7 @@ azure-search-documents==11.6.0b1
 azure-storage-blob
 azure-storage-file-datalake
 uvicorn
-aiohttp
+aiohttp>=3.12.14
 azure-monitor-opentelemetry
 opentelemetry-instrumentation-asgi
 opentelemetry-instrumentation-httpx
@@ -19,13 +19,19 @@ opentelemetry-instrumentation-requests
 opentelemetry-instrumentation-aiohttp-client
 opentelemetry-instrumentation-openai
 msal
-cryptography
+cryptography>=44.0.1
 PyJWT
 Pillow
 types-Pillow
-pypdf
+pypdf>=6.4.0
 PyMuPDF
 beautifulsoup4
 types-beautifulsoup4
 msgraph-sdk==1.1.0
 openai-messages-token-helper
+# Security: Force upgrade of transitive dependencies with known vulnerabilities
+urllib3>=2.6.0
+werkzeug>=3.1.4
+h2>=4.3.0
+jinja2>=3.1.6
+requests>=2.32.4
